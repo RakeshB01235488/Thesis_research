@@ -1,0 +1,12 @@
+--scikit-extremes(GEV)
+--personally felt easy to implement using ubuntu
+
+
+Follow the instructions on 
+-- https://scikit-extremes.readthedocs.io/en/latest/
+-- don't miss any steps, go from top to down sequentially 
+-- must use python3
+-- must use lmoments3 version mentioned in the documentation
+-- make changes to the datasets based on the available datasets and paste them in their respective directory. (format of the datasets must be similar)
+--you need to make changes to the datasets.py to import your own datasets.(changes are easy, you just need to make changes based on the available code in the file)
+--follow the user guide for further reference
