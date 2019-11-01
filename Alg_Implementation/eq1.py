@@ -148,7 +148,21 @@ for i in range(d+n, len(x_values)):   #xd[n] to xd[len(x_l99)-d-1]
         wStarX = np.delete(wStarX, 0)
         wStarX = np.append(wStarX, x_values[i])
         m_avg = movAvg(wStarX) #update of local model
-        
+
+
+import matplotlib.pyplot as plt
+ext = np.array(A)
+# print(ext[:5])
+X_ext = ext[:,0]
+y_ext = ext[:,1]
+plt.plot(X_ext, y_ext, 'd', color= 'r')
+
+y_value = x_values
+x_axis = np.arange(len(y_value))
+plt.plot(x_axis, y_value, '+', color= 'b')
+plt.show()
+# plt.plot()
+
 #print(A)
 #print(len(A))
         #wStarX = np.append(wStarX[1:], x_values[i])
