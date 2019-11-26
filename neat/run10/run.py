@@ -12,25 +12,25 @@ from sklearn.metrics import mean_absolute_error
 
 # 2-input XOR inputs and expected outputs.
 
-df1 = pd.read_csv('../ppall_2009.csv')
-df2 = pd.read_csv('../ppall_2010.csv')
+df1 = pd.read_csv('../train.csv')
+df2 = pd.read_csv('../test.csv')
 
-df1.pop('l0')
-df1.pop('m0')
+#df1.pop('l0')
+#df1.pop('m0')
 
-df2.pop('l0')
-df2.pop('m0')
-print(df1.head())
-print(df2.head())
+#df2.pop('l0')
+#df2.pop('m0')
+#print(df1.head())
+#print(df2.head())
 
-print(df1.shape)
-print(df2.shape)
-print(df1.columns)
-print(df2.columns)
+#print(df1.shape)
+#print(df2.shape)
+#print(df1.columns)
+#print(df2.columns)
 
 
-y_train = df1.pop('sum')
-y_test = df2.pop('sum')
+y_train = df1.pop('DP(deg)')
+y_test = df2.pop('DP(deg)')
 
 X_train = df1
 X_test = df2
