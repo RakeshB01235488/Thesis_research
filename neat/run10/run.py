@@ -8,6 +8,8 @@ import timeit
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
+from numpy import array
+from sklearn.metrics import r2_score
 
 
 # 2-input XOR inputs and expected outputs.
@@ -17,6 +19,7 @@ df2 = pd.read_csv('../test.csv')
 
 #df1.pop('l0')
 #df1.pop('m0')
+
 
 #df2.pop('l0')
 #df2.pop('m0')
@@ -75,7 +78,7 @@ for i in range(1,1+1):
     #p.add_reporter(neat.Checkpointer(100))
     
     # Run until a solution is found.
-    winner = p.run(eval_genomes, 500)  # run for 12000 to test 
+    winner = p.run(eval_genomes, 5)  # run for 12000 to test 
     with open('winner_genome'+str(i), 'wb') as f:
         pickle.dump(winner, f)
     
@@ -89,6 +92,7 @@ for i in range(1,1+1):
     list2 = []
     # print ('type(list2)',type(list2))
 
+    y_test = array(y_test)
     winner_net = neat.nn.RecurrentNetwork.create(winner, config)
     for xi, xo in zip(X_test, y_test):
         output = winner_net.activate(xi)
@@ -98,18 +102,22 @@ for i in range(1,1+1):
         # xi, xo, output))
     pred = np.array(list2)
     print('pred',pred)
-    # np.savetxt("pred-ge"+str(i)+".txt",pred)
+    np.savetxt("pred-ge"+str(i)+".txt",pred)
     s2 = timeit.default_timer()  
     print ('Runing time is Hour:',round((s2 -s1)/3600,2))
-# y_test = dge_2010.ix[range(0,N1),['l0']]
-# yhat =pred
-# y= y_test.values
-# rmse = sqrt(mean_squared_error(y, yhat))
-# print("GE RMSE=",rmse)
-# print("GE NRMSE=",100*rmse/max(y))
-# mae= mean_absolute_error(y, yhat)
-# print("GE MAE=",mae)
-# print("GE NMAE=",100*mae/max(y))
+    
+    #y_test = y_test.ix[range(0,N1),['l0']]
+    yhat =pred
+    #print("yhat")
+    y= y_test
+    rmse = sqrt(mean_squared_error(y, yhat))
+    print("GE RMSE=",rmse)
+    print("GE NRMSE=",100*rmse/max(y))
+    mae= mean_absolute_error(y, yhat)
+    print("GE MAE=",mae)
+    print("GE NMAE=",100*mae/max(y))
+    rsq = r2_score(y, yhat)
+    print("RSquared=",rsq)
 print ('Runing time is Hour:',round((s2 -s1)/3600,2))
 """
 """
