@@ -78,7 +78,7 @@ for i in range(1,1+1):
     #p.add_reporter(neat.Checkpointer(100))
     
     # Run until a solution is found.
-    winner = p.run(eval_genomes, 5)  # run for 12000 to test 
+    winner = p.run(eval_genomes,500)  # run for 12000 to test 
     with open('winner_genome'+str(i), 'wb') as f:
         pickle.dump(winner, f)
     
