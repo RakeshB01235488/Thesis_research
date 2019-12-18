@@ -14,8 +14,8 @@ from sklearn.metrics import r2_score
 
 # 2-input XOR inputs and expected outputs.
 
-df1 = pd.read_csv('../train.csv')
-df2 = pd.read_csv('../test.csv')
+df1 = pd.read_csv('../data-1.csv')
+df2 = pd.read_csv('../data-2.csv')
 
 #df1.pop('l0')
 #df1.pop('m0')
@@ -32,8 +32,8 @@ df2 = pd.read_csv('../test.csv')
 #print(df2.columns)
 
 
-y_train = df1.pop('DP(deg)')
-y_test = df2.pop('DP(deg)')
+y_train = df1.pop('Dp')
+y_test = df2.pop('Dp')
 
 X_train = df1
 X_test = df2
