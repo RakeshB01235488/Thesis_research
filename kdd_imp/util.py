@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-def extreme_event_detection(df_series, input_col, d =-1):
+#Streaming peak over threshold with drift
+def extreme_event_detection(df_series, d =-1): #input parameters are data frame and window length(d)
   
   if d == -1:
   	  d = int(df_series.count()/10)
@@ -28,8 +28,8 @@ def extreme_event_detection(df_series, input_col, d =-1):
   m_avg = movAvg(wStarX) #moving average of the next observation after the window 
   xd = []
  
-  #computing variable change for the next 200 observations
-  for i in range (d, d+200):	
+  #computing variable change for the next 300 observations
+  for i in range (200, 500):	
 	  xd.append(abs(df_series.values[i] - m_avg))
 	  wStarX = np.delete(wStarX, 0)
 	  wStarX = np.append(wStarX, df_series.values[i])
@@ -42,11 +42,14 @@ def extreme_event_detection(df_series, input_col, d =-1):
   y_t = out1[3]
   n = out1[4] 
   k = n
+  
+  output_list = []
 
-  for i in range(d+200, len(df_series.values)):  
+  for i in range(501, len(df_series.values)):  
       xd = np.append(xd, df_series.values[i] - m_avg) #variable change
       if xd[-1] >= z_q: #anomaly case
-    	  anomalies.append((i,df_series.values[i]))#adding anomaly to the anomalies set
+    	  anomalies.append((i,df_series.values[i],1))#adding anomaly to the anomalies set
+    	  output_list.append((i,1))
     	  m_avg = movAvg(wStarX)
       elif xd[-1] > t:	
     	  k = k+1 
@@ -62,13 +65,11 @@ def extreme_event_detection(df_series, input_col, d =-1):
     	  m_avg = movAvg(wStarX) #update of local model
       else: #normal value case
         k = k + 1
+        output_list.append((i,0))
         wStarX = np.delete(wStarX, 0)
         wStarX = np.append(wStarX, df_series.values[i])
         m_avg = movAvg(wStarX) #update of local model
-  print(anomalies)
-  return anomalies
-
-  
+  return anomalies, output_list
 
 
 #get columns of the data set
@@ -113,4 +114,11 @@ def visualize(df_series,anomalies):
   plt.plot(x_axis, y_value, '+', color= 'b')
   plt.show()
 
+#to get a list of 1's(anomaly) or 0's(normal value) for each observation
+def anomaly_binary_list_and_visualize(binary_output_of_extreme_event_detection_function):
+  temp_list = np.array(binary_output_of_extreme_event_detection_function)
+  binary_list = temp_list[:,1]
+  plt.plot(binary_list)
+  plt.show()
+  return binary_list
 
