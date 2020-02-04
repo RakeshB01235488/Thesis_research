@@ -11,7 +11,7 @@ df_series1 = data[column_name]
 
 anomalies_output = util.extreme_event_detection(df_series1)
 
-binary_output_list = util.anomaly_binary_list_and_visualize(anomalies_output[1])
+binary_output_list = util.anomaly_binary_list(anomalies_output[1])
 util.visualize(df_series1, anomalies_output[0])
 
 print(binary_output_list) #list of binary values, 1 if its anomaly, 0 for a noraml value

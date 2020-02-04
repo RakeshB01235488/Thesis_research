@@ -115,10 +115,10 @@ def visualize(df_series,anomalies):
   plt.show()
 
 #to get a list of 1's(anomaly) or 0's(normal value) for each observation
-def anomaly_binary_list_and_visualize(binary_output_of_extreme_event_detection_function):
+def anomaly_binary_list(binary_output_of_extreme_event_detection_function):
   temp_list = np.array(binary_output_of_extreme_event_detection_function)
   binary_list = temp_list[:,1]
-  plt.plot(binary_list)
-  plt.show()
+  # plt.plot(binary_list)
+  # plt.show()
   return binary_list
 
