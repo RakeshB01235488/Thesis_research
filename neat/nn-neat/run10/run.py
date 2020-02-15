@@ -14,8 +14,8 @@ from sklearn.metrics import r2_score
 
 # 2-input XOR inputs and expected outputs.
 
-df1 = pd.read_csv('../data1_train.csv')
-df2 = pd.read_csv('../data-2.csv')
+df1 = pd.read_csv('../combine_partial_NoLag-1.csv')
+df2 = pd.read_csv('../combine_partial_NoLag-2.csv')
 
 #df1.pop('Date')
 #df1.pop('m0')
@@ -32,8 +32,8 @@ df2 = pd.read_csv('../data-2.csv')
 #print(df2.columns)
 
 
-y_train = df1.pop('Dp')
-y_test = df2.pop('Dp')
+y_train = df1.pop('East_12')
+y_test = df2.pop('East_12')
 
 X_train = df1
 X_test = df2
@@ -78,7 +78,7 @@ for i in range(1,1+1):
     #p.add_reporter(neat.Checkpointer(100))
     
     # Run until a solution is found.
-    winner = p.run(eval_genomes, 250)  # run for 12000 to test 
+    winner = p.run(eval_genomes, 500)  # run for 12000 to test 
     with open('winner_genome'+str(i), 'wb') as f:
         pickle.dump(winner, f)
     
